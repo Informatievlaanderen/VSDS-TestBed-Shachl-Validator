@@ -31,13 +31,13 @@ services:
       # services are internal, you can adapt this URL to also be internal.
       - HMAC_KEY=CHANGE_ME
     ports:
-      - "8080:8080"
+      - "${GITB_SRV_PORT:-8080}:8080"
   gitb-ui:
     image: isaitb/gitb-ui
     container_name: itb-ui
     restart: unless-stopped
     ports:
-      - "9000:9000"
+      - "${GITB_UI_PORT:-9000}:9000"
     environment:
       - THEME=gitb
       - DB_DEFAULT_PASSWORD=CHANGE_ME
@@ -60,7 +60,7 @@ services:
     environment:
       JAVA_OPTS: "-Xmx4g -Xms4g"
     ports:
-      - "7200:7200"
+      - "${GRAPHDB_PORT:-7200}:7200"
 
   ldio-workbench:
     image: ldes/ldi-orchestrator:2.10.0-SNAPSHOT
@@ -71,7 +71,7 @@ services:
       timeout: 3s
       retries: 12
     ports:
-      - "8888:8080"
+      - "${LDIO_WB_PORT:-8888}:8080"
 
   testbed-shacl-validator:
     image: ghcr.io/informatievlaanderen/testbed-shacl-validator:latest
@@ -81,6 +81,6 @@ services:
       ldio-workbench:
         condition: service_healthy
     environment:
-      - LDIO_HOST=http://ldio-workbench:8080
-      - LDIO_SPARQLHOST=http://graphdb:7200
-      - SERVER_PORT=8080
+      - LDIO_HOST=http://ldio-workbench:8080   # targets container-port (not exposed host-port)
+      - LDIO_SPARQLHOST=http://graphdb:7200    # idem
+      - SERVER_PORT=8080                       # looks like this needs to point to itb_srv port assumed also container based

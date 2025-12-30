@@ -1,0 +1,11 @@
+# exported host port for the gitb-server service (whatever that may do)
+#GITB_SRV_PORT=9090
+
+# exported host port for the gitb-ui service (whatever that may do)
+#GITB_UI_PORT=9000
+
+# exported host port for the graphdb triple store service 
+#GRAPHDB_PORT=7200
+
+# exported host port for the LDIO Workbench service
+#LDIO_WB_PORT=8888
