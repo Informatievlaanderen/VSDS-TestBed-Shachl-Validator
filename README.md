@@ -94,8 +94,15 @@ here are dummy environment variables used that must be changed in a production e
 ### Set up a TestBed instance yourself
 
 If you need to set up a TestBed instance by yourself, there are some several steps you must do.
-Go to [http://localhost:9000](http://localhost:9000) and log in. When logging in for the first time, the credentials can
-be found in the logs of the UI container. If logged in, perform the following steps:
+Go to [http://localhost:9000](http://localhost:9000) and log in. 
+
+When logging in for the first time, the credentials can be found in the logs of the UI container through: 
+``` bash
+$ docker compose logs --since 24h | grep -C 4 "admin@itb"| tail -7
+```
+(be sure to narrow or extend the "24h" indicator to include the first moment of starting up the docker-compose stack)
+
+When logged in, perform the following steps:
 
 1. Create a _community_. (If you want to use the REST API, this is required, otherwise, this can be omitted)
 2. Create a _domain_, which **can** be linked to the created community
